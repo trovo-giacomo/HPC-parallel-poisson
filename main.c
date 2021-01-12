@@ -6,6 +6,8 @@
 #include "alloc3d.h"
 #include "print.h"
 
+#include "init_matrix.h"
+
 #ifdef _JACOBI
 #include "jacobi.h"
 #endif
@@ -40,11 +42,12 @@ main(int argc, char *argv[]) {
     }
 
     // allocate memory
-    if ( (u = d_malloc_3d(N, N, N)) == NULL ) {
+    if ( (u = d_malloc_3d(N+2, N+2, N+2)) == NULL ) {
         perror("array u: allocation failed");
         exit(-1);
     }
 
+    init_matrix(N,u,start_T);
     /*
      *
      * fill in your code here 

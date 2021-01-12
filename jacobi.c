@@ -6,4 +6,5 @@
 void
 jacobi() {
     // fill in your code here
+    //f[i][j][k]
 }

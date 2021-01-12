@@ -1,0 +1,1 @@
+void init_matrix(int N, double ***A, double start_T);
