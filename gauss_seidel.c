@@ -3,19 +3,20 @@
  */
 #include <math.h>
 #include "frobenius_norm.h"
-#include <time.h>
-#define mytimer clock
-#define delta_t(a,b) (1e3 * (b - a) / CLOCKS_PER_SEC)
+#include <stdio.h>
+#include <unistd.h>
+#include <sys/time.h>
 
 
-int gauss_seidel(double ***u, double ***f, int N, int max_iter, double *threshold) {
+double gauss_seidel(double ***u, double ***f, int N, int max_iter, double *threshold) {
+    struct timeval start, end;
     int it = 0;
     double norm = 1000.0; //, norm_old = 0, tollerance = 1000;
     double h = 1.0/6.0;
-    double delta_2 = 4.0/(N*N), error;
-    clock_t t1 ,t2, total;
+    double delta_2 = 4.0/((N-1)*(N-1)), error;
 
-    t1 = mytimer();
+    gettimeofday(&start, NULL);
+    
 
     while(it < max_iter && norm > *threshold){
         error = 0.0;
@@ -37,12 +38,12 @@ int gauss_seidel(double ***u, double ***f, int N, int max_iter, double *threshol
         //printf("it:%d norm:%g\n",it,norm);
         it++;
     }
-    t2 = mytimer();
-    total = delta_t(t1,t2);
-    printf("%f\n",total);
+    gettimeofday(&end, NULL);
+    double time_taken = end.tv_sec + end.tv_usec / 1e6 - start.tv_sec - start.tv_usec / 1e6; // in seconds
+    
 
     *threshold = norm;
-    return it;
+    return (double)it/time_taken;
     
 }
 
