@@ -29,7 +29,7 @@ main(int argc, char *argv[]) {
     char	*output_prefix = "poisson_res";
     char        *output_ext    = "";
     char	output_filename[FILENAME_MAX];
-    double 	***u = NULL, ***f=NULL;
+    double 	***u = NULL, ***u_old=NULL, ***f=NULL;
 
 
     /* get the paramters from the command line */
@@ -49,13 +49,22 @@ main(int argc, char *argv[]) {
 
     init_matrix_u(N,u,start_T);
 
+    if ( (u_old = d_malloc_3d(N, N, N)) == NULL ) {
+        perror("array u: allocation failed");
+        exit(-1);
+    }
+
     if ( (f = d_malloc_3d(N, N, N)) == NULL ) {
         perror("array f: allocation failed");
         exit(-1);
     }
     init_matrix_f(N,f);
 
-    for(int i=0; i<N; i++){
+
+    int tot_iteration = jacobi(u,u_old,f,N,iter_max,&tolerance);
+    printf("Total iteration: %d\nNorm: %g\n",tot_iteration,tolerance);
+
+    /*for(int i=0; i<N; i++){
         for(int j=0; j<N; j++){
             for(int k=0; k<N; k++)
                 printf("%g ",f[i][j][k]);
@@ -68,7 +77,7 @@ main(int argc, char *argv[]) {
     printf("%d ",discr(-1,N));
     printf("%d ",discr(0,N));
     printf("%d\n",discr(1,N));
-    
+    */
 
     // dump  results if wanted 
     switch(output_type) {
@@ -85,8 +94,8 @@ main(int argc, char *argv[]) {
 	    output_ext = ".vtk";
 	    sprintf(output_filename, "%s_%d%s", output_prefix, N, output_ext);
 	    fprintf(stderr, "Write VTK file to %s: ", output_filename);
-	    //print_vtk(output_filename, N, u);
-        print_vtk(output_filename, N, f);
+	    print_vtk(output_filename, N, u);
+        //print_vtk(output_filename, N, f);
 	    break;
 	default:
 	    fprintf(stderr, "Non-supported output type!\n");
