@@ -2,9 +2,35 @@
  *
  */
 #include <math.h>
+#include "frobenius_norm.h"
+int gauss_seidel(double ***u, double ***f, int N, int max_iter, double *threshold) {
+    int it = 0;
+    double norm = 1000.0; //, norm_old = 0, tollerance = 1000;
+    double h = 1.0/6.0;
+    double delta_2 = 4.0/(N*N), error;
+    while(it < max_iter && norm > *threshold){
+        error = 0.0;
+        // update
+        for(int i=1; i<N-1; i++){
+            for(int j=1; j<N-1; j++){
+                for(int k=1; k<N-1; k++){
+                    double u_old =  u[i][j][k];
+                    u[i][j][k] = h*(u[i-1][j][k]+u[i+1][j][k] + u[i][j-1][k]+u[i][j+1][k] + u[i][j][k-1] +u[i][j][k+1] + delta_2*f[i][j][k]);
 
-void
-gauss_seidel() {
-    // fill in your code here
+                    error += (u[i][j][k] - u_old) * (u[i][j][k] - u_old);
+                }
+            }
+        }
+        norm = sqrt(error);
+        //norm
+        //norm = frobenius_norm_single(u,N);
+        //tollerance = fabs(norm-norm_old);
+        //printf("it:%d norm:%g\n",it,norm);
+        it++;
+    }
+
+    *threshold = norm;
+    return it;
+    
 }
 

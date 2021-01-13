@@ -53,6 +53,7 @@ main(int argc, char *argv[]) {
         perror("array u: allocation failed");
         exit(-1);
     }
+    init_matrix_u(N,u_old,start_T);
 
     if ( (f = d_malloc_3d(N, N, N)) == NULL ) {
         perror("array f: allocation failed");
@@ -60,8 +61,16 @@ main(int argc, char *argv[]) {
     }
     init_matrix_f(N,f);
 
-
+    #ifdef _JACOBI
+    printf("Jacobi executed\n");
     int tot_iteration = jacobi(u,u_old,f,N,iter_max,&tolerance);
+    #endif
+
+    #ifdef _GAUSS_SEIDEL
+    printf("Gauss Seidel executed\n");
+    int tot_iteration = gauss_seidel(u,f,N,iter_max,&tolerance);
+    #endif
+    
     printf("Total iteration: %d\nNorm: %g\n",tot_iteration,tolerance);
 
     /*for(int i=0; i<N; i++){
@@ -77,8 +86,8 @@ main(int argc, char *argv[]) {
     printf("%d ",discr(-1,N));
     printf("%d ",discr(0,N));
     printf("%d\n",discr(1,N));
-    */
-
+    
+*/
     // dump  results if wanted 
     switch(output_type) {
 	case 0:
