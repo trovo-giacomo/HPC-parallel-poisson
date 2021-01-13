@@ -22,12 +22,13 @@ int jacobi(double ***u, double ***u_old, double ***f, int N, int max_iter, doubl
             for(int j=1; j<N-1; j++){
                 for(int k=1; k<N-1; k++){
                     double t = u_old[i][j][k];
+                    
                     double t1 = u_old[i-1][j][k] + u_old[i+1][j][k];
-                    double t2 = u_old[i][j-1][k] + u_old[i][j+1][k];
-                    double t3 = u_old[i][j][k-1] + u_old[i][j][k+1];
-                    double t4 = delta_2*f[i][j][k];
+                    t1 += u_old[i][j-1][k] + u_old[i][j+1][k];
+                    t1 += u_old[i][j][k-1] + u_old[i][j][k+1];
+                    t1 += delta_2*f[i][j][k];
 
-                    u[i][j][k] = h*(t1 + t2 + t3 + t4);
+                    u[i][j][k] = h*(t1);
                     t = u[i][j][k] - t;
                     error += t*t;
                 }

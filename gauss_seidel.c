@@ -3,11 +3,20 @@
  */
 #include <math.h>
 #include "frobenius_norm.h"
+#include <time.h>
+#define mytimer clock
+#define delta_t(a,b) (1e3 * (b - a) / CLOCKS_PER_SEC)
+
+
 int gauss_seidel(double ***u, double ***f, int N, int max_iter, double *threshold) {
     int it = 0;
     double norm = 1000.0; //, norm_old = 0, tollerance = 1000;
     double h = 1.0/6.0;
     double delta_2 = 4.0/(N*N), error;
+    clock_t t1 ,t2, total;
+
+    t1 = mytimer();
+
     while(it < max_iter && norm > *threshold){
         error = 0.0;
         // update
@@ -28,6 +37,9 @@ int gauss_seidel(double ***u, double ***f, int N, int max_iter, double *threshol
         //printf("it:%d norm:%g\n",it,norm);
         it++;
     }
+    t2 = mytimer();
+    total = delta_t(t1,t2);
+    printf("%f\n",total);
 
     *threshold = norm;
     return it;
