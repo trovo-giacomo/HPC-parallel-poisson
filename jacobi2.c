@@ -2,7 +2,6 @@
  * 
  */
 
-#include "frobenius_norm.h"
 #include <math.h>
 #include <omp.h>
 

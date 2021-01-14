@@ -13,7 +13,7 @@
 #endif
 
 #ifdef _JACOBI2
-#include "jacobi1.h"
+#include "jacobi2.h"
 #endif
 
 #define N_DEFAULT 100
@@ -68,7 +68,7 @@ main(int argc, char *argv[]) {
 
     #ifdef _JACOBI2
     printf("Jacobi executed\n");
-    int tot_iteration = jacobi1(u,u_old,f,N,iter_max,&tolerance);
+    int tot_iteration = jacobi2(u,u_old,f,N,iter_max,&tolerance);
     #endif
     
     printf("Total iteration: %d\nNorm: %g\n",tot_iteration,tolerance);
