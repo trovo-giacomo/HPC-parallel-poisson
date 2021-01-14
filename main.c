@@ -84,31 +84,26 @@ main(int argc, char *argv[]) {
 
 
     #ifdef _JACOBI1
-    printf("Jacobi executed\n");
     int tot_iteration = jacobi1(u,u_old,f,N,iter_max,&tolerance);
     #endif
 
     #ifdef _JACOBI2
-    printf("Jacobi executed\n");
     int tot_iteration = jacobi2(u,u_old,f,N,iter_max,&tolerance);
     #endif
 
     #ifdef _JACOBI3
-    printf("Jacobi executed\n");
     int tot_iteration = jacobi3(u,u_old,f,N,iter_max,&tolerance);
     #endif
 
     #ifdef _JACOBI4
-    printf("Jacobi executed\n");
     int tot_iteration = jacobi4(u,u_old,f,N,iter_max,&tolerance);
     #endif
 
     #ifdef _JACOBI5
-    printf("Jacobi executed\n");
     int tot_iteration = jacobi5(u,u_old,f,N,iter_max,&tolerance);
     #endif
     
-    printf("Total iteration: %d\nNorm: %g\n",tot_iteration,tolerance);
+    //printf("Total iteration: %d\nNorm: %g\n",tot_iteration,tolerance);
 
     /*for(int i=0; i<N; i++){
         for(int j=0; j<N; j++){
