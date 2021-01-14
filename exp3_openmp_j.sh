@@ -25,5 +25,5 @@ OUTPUT=0
 #done
 for N in 100 200 300 400
 do
-    OMP_NUM_THREADS=1 time -p ./poisson_j $N $NUM_ITER $TOLERANCE $START_T $OUTPUT
+    OMP_NUM_THREADS=1 time -p ./poisson_j1 $N $NUM_ITER $TOLERANCE $START_T $OUTPUT
 done
