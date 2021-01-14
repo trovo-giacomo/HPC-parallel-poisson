@@ -26,10 +26,11 @@ void init_matrix_u(int N, double ***A, double start_T){
 
 int discr(double x, int N){
     return (int) ((((double)N-1.0)/2.0*(x + 1.0))+0.5); //rounding to the nearest integer
+    //(int) round((N-1)/2*(x+1))
 }
 
 void init_matrix_f(int N, double ***A){
-    int z_start = discr(-2.0/3.0,N), z_end = discr(0,N);
+    int z_start = discr(-2/3.0,N), z_end = discr(0,N);
     int y_start = discr(-1,N), y_end = discr(-1.0/2.0,N);
     int x_start = discr(-1,N), x_end = discr(-3.0/8.0,N);
 

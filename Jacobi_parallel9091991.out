@@ -1,0 +1,82 @@
+/zhome/49/5/153826/.lsbatch/1610613976.9091991.shell: line 16: NUM_ITER: command not found
+/zhome/49/5/153826/.lsbatch/1610613976.9091991.shell: line 17: TOLERANCE: command not found
+/zhome/49/5/153826/.lsbatch/1610613976.9091991.shell: line 18: START_T: command not found
+/zhome/49/5/153826/.lsbatch/1610613976.9091991.shell: line 19: OUTPUT: command not found
+real 0.01
+user 0.00
+sys 0.01
+real 0.01
+user 0.00
+sys 0.00
+real 0.01
+user 0.00
+sys 0.01
+real 0.01
+user 0.00
+sys 0.01
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@n-62-21-77>
+Subject: Job 9091991: <Jacobi_par> in cluster <dcc> Exited
+
+Job <Jacobi_par> was submitted from host <n-62-27-22> by user <s202447> in cluster <dcc> at Thu Jan 14 09:46:16 2021
+Job was executed on host(s) <24*n-62-21-77>, in queue <hpcintro>, as user <s202447> in cluster <dcc> at Thu Jan 14 09:46:17 2021
+</zhome/49/5/153826> was used as the home directory.
+</zhome/49/5/153826/HPC/HPC-parallel-poisson> was used as the working directory.
+Started at Thu Jan 14 09:46:17 2021
+Terminated at Thu Jan 14 09:46:18 2021
+Results reported at Thu Jan 14 09:46:18 2021
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#BSUB -J Jacobi_par
+#BSUB -o Jacobi_parallel%J.out
+#BSUB -q hpcintro
+#BSUB -n 24
+#BSUB -R "rusage[mem=2048]"
+#BSUB -W 45
+
+# module load studio
+
+# define the driver name to use
+# valid values: matmult_c.studio, matmult_f.studio, matmult_c.gcc or
+# matmult_f.gcc
+#
+
+#N = 100
+NUM_ITER = 1000000
+TOLERANCE = 0.0001
+START_T = 0.0
+OUTPUT = 0
+
+#THREADS = 1 2 4 6 8 10 12 14 16 18 20 22 24
+#for THR in $THREADS
+#do
+#    OMP_NUM_THREADS=$THR time -p ./poisson_j $N $NUM_ITER $TOLERANCE $START_T $OUTPUT
+#done
+for N in 100 200 300 400
+do
+    OMP_NUM_THREADS=1 time -p ./poisson_j $N $NUM_ITER $TOLERANCE $START_T $OUTPUT
+done
+
+------------------------------------------------------------
+
+Exited with exit code 11.
+
+Resource usage summary:
+
+    CPU time :                                   0.32 sec.
+    Max Memory :                                 -
+    Average Memory :                             -
+    Total Requested Memory :                     49152.00 MB
+    Delta Memory :                               -
+    Max Swap :                                   -
+    Max Processes :                              -
+    Max Threads :                                -
+    Run time :                                   1 sec.
+    Turnaround time :                            2 sec.
+
+The output (if any) is above this job summary.
+
