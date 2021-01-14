@@ -12,22 +12,27 @@
 # matmult_f.gcc
 #
 
-N=100
-NUM_ITER=1000000
+N=150
+NUM_ITER=3000
 TOLERANCE=0.0001
 START_T=0.0
 OUTPUT=0
 
-# THREADS="1 2 4 6 8 10 12 14 16 18 20 22 24"
-THREADS="6 8 10"
-EXE="./poisson_j1 ./poisson_j2" # ./poisson_j3 ./poisson_j4 ./poisson_j5"
+PLACE=sockets
+BIND=spread
+
+THREADS="1 2 4 6 8 10 12 14 16 18 20 22 24"
+#THREADS="6 8 10"
+#EXE="./poisson_j1 ./poisson_j2 ./poisson_j3 ./poisson_j4" # ./poisson_j5"
+EXE="./poisson_j4"
 for EX in $EXE 
 do
 echo "Executable: $EX"
 for THR in $THREADS
 do
 echo "Number of threads: $THR"
-    OMP_NUM_THREADS=$THR time -p $EX $N $NUM_ITER $TOLERANCE $START_T $OUTPUT
+    OMP_PLACES=$PLACE OMP_PROC_BIND=$BIND OMP_NUM_THREADS=$THR time -p $EX $N $NUM_ITER $TOLERANCE $START_T $OUTPUT
+    #OMP_NUM_THREADS=$THR time -p $EX $N $NUM_ITER $TOLERANCE $START_T $OUTPUT
 done
 done
 
