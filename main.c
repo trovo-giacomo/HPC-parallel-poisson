@@ -65,11 +65,11 @@ main(int argc, char *argv[]) {
     printf("Jacobi executed\n");
     double tot_iteration;
     double avg = 0.0;
-    for(int i = 0; i < 50 ; i++){
+    for(int i = 0; i < 100 ; i++){
         tot_iteration = jacobi(u,u_old,f,N,iter_max,&tolerance);
         avg += tot_iteration;
     }
-    avg = avg/50.0;
+    avg = avg/100.0;
     printf("N: %d, avg it/s: %f",N, avg);
     #endif
 
@@ -77,11 +77,11 @@ main(int argc, char *argv[]) {
     printf("Gauss Seidel executed\n");
     double tot_iteration;
     double avg = 0.0;
-    for(int i = 0; i < 50 ; i++){
+    for(int i = 0; i < 100 ; i++){
         tot_iteration = gauss_seidel(u,f,N,iter_max,&tolerance);
         avg += tot_iteration;
     }
-    avg = avg/50.0;
+    avg = avg/100.0;
     printf("N: %d, avg it/s: %f",N, avg);
     #endif
     

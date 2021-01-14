@@ -1,0 +1,65 @@
+Jacobi executed
+N: 10, avg it/s: 520680.404363Jacobi executed
+N: 20, avg it/s: 45927.425436Jacobi executed
+N: 30, avg it/s: 12223.727405Jacobi executed
+N: 40, avg it/s: 4753.019456Jacobi executed
+N: 50, avg it/s: 2326.467129Jacobi executed
+N: 60, avg it/s: 1348.729800Jacobi executed
+N: 70, avg it/s: 818.921172Jacobi executed
+N: 80, avg it/s: 560.477703Jacobi executed
+N: 90, avg it/s: 381.707786Jacobi executed
+N: 100, avg it/s: 279.595819
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@n-62-21-76>
+Subject: Job 9094328: <Different_N> in cluster <dcc> Done
+
+Job <Different_N> was submitted from host <n-62-27-19> by user <s202737> in cluster <dcc> at Thu Jan 14 10:42:09 2021
+Job was executed on host(s) <n-62-21-76>, in queue <hpcintro>, as user <s202737> in cluster <dcc> at Thu Jan 14 10:42:12 2021
+</zhome/1a/b/153979> was used as the home directory.
+</zhome/1a/b/153979/HPC-parallel-poisson> was used as the working directory.
+Started at Thu Jan 14 10:42:12 2021
+Terminated at Thu Jan 14 10:44:58 2021
+Results reported at Thu Jan 14 10:44:58 2021
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#BSUB -J Different_N
+#BSUB -o Different_N_%J.out
+#BSUB -q hpcintro
+#BSUB -n 1
+#BSUB -R "rusage[mem=2048]"
+#BSUB -W 45
+
+# module load studio
+
+# define the driver name to use
+# valid values: matmult_c.studio, matmult_f.studio, matmult_c.gcc or
+# matmult_f.gcc
+#
+for N in 10 20  30 40 50 60 70 80 90 100
+do
+    ./poisson_j $N 20000 0.0001 0 0
+done
+
+
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   166.47 sec.
+    Max Memory :                                 24 MB
+    Average Memory :                             20.75 MB
+    Total Requested Memory :                     2048.00 MB
+    Delta Memory :                               2024.00 MB
+    Max Swap :                                   -
+    Max Processes :                              4
+    Max Threads :                                5
+    Run time :                                   166 sec.
+    Turnaround time :                            169 sec.
+
+The output (if any) is above this job summary.
+

@@ -1,0 +1,65 @@
+Gauss Seidel executed
+N: 10, avg it/s: 449793.957452Gauss Seidel executed
+N: 20, avg it/s: 33720.469669Gauss Seidel executed
+N: 30, avg it/s: 8458.770821Gauss Seidel executed
+N: 40, avg it/s: 3179.360905Gauss Seidel executed
+N: 50, avg it/s: 1567.602894Gauss Seidel executed
+N: 60, avg it/s: 884.551683Gauss Seidel executed
+N: 70, avg it/s: 545.960619Gauss Seidel executed
+N: 80, avg it/s: 360.871902Gauss Seidel executed
+N: 90, avg it/s: 250.063943Gauss Seidel executed
+N: 100, avg it/s: 181.187641
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@n-62-21-78>
+Subject: Job 9094329: <Different_N> in cluster <dcc> Done
+
+Job <Different_N> was submitted from host <n-62-27-19> by user <s202737> in cluster <dcc> at Thu Jan 14 10:42:19 2021
+Job was executed on host(s) <n-62-21-78>, in queue <hpcintro>, as user <s202737> in cluster <dcc> at Thu Jan 14 10:42:22 2021
+</zhome/1a/b/153979> was used as the home directory.
+</zhome/1a/b/153979/HPC-parallel-poisson> was used as the working directory.
+Started at Thu Jan 14 10:42:22 2021
+Terminated at Thu Jan 14 10:44:44 2021
+Results reported at Thu Jan 14 10:44:44 2021
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#BSUB -J Different_N
+#BSUB -o Different_N_%J.out
+#BSUB -q hpcintro
+#BSUB -n 1
+#BSUB -R "rusage[mem=2048]"
+#BSUB -W 45
+
+# module load studio
+
+# define the driver name to use
+# valid values: matmult_c.studio, matmult_f.studio, matmult_c.gcc or
+# matmult_f.gcc
+#
+for N in 10 20  30 40 50 60 70 80 90 100
+do
+    ./poisson_gs $N 20000 0.0001 0 0
+done
+
+
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   142.66 sec.
+    Max Memory :                                 22 MB
+    Average Memory :                             19.00 MB
+    Total Requested Memory :                     2048.00 MB
+    Delta Memory :                               2026.00 MB
+    Max Swap :                                   -
+    Max Processes :                              4
+    Max Threads :                                5
+    Run time :                                   142 sec.
+    Turnaround time :                            145 sec.
+
+The output (if any) is above this job summary.
+
