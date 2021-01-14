@@ -42,7 +42,7 @@ main(int argc, char *argv[]) {
     char        *output_ext    = "";
     char	output_filename[FILENAME_MAX];
     double 	***u = NULL, ***u_old=NULL, ***f=NULL;
-
+    double ts, te;
 
     /* get the paramters from the command line */
     N         = atoi(argv[1]);	// grid size
@@ -84,31 +84,46 @@ main(int argc, char *argv[]) {
 
 
     #ifdef _JACOBI1
-    printf("Jacobi executed\n");
+    //printf("Jacobi executed\n");
+    ts = omp_get_wtime();
     int tot_iteration = jacobi1(u,u_old,f,N,iter_max,&tolerance);
+    te = omp_get_wtime();
+    printf("%g",tot_iteration/(te-ts)*9*8);
     #endif
 
     #ifdef _JACOBI2
-    printf("Jacobi executed\n");
+    //printf("Jacobi executed\n");
+    ts = omp_get_wtime();
     int tot_iteration = jacobi2(u,u_old,f,N,iter_max,&tolerance);
+    te = omp_get_wtime();
+    printf("%g",tot_iteration/(te-ts)*9*8);
     #endif
 
     #ifdef _JACOBI3
-    printf("Jacobi executed\n");
+    //("Jacobi executed\n");
+    ts = omp_get_wtime();
     int tot_iteration = jacobi3(u,u_old,f,N,iter_max,&tolerance);
+    te = omp_get_wtime();
+    printf("%g",tot_iteration/(te-ts)*9*8);
     #endif
 
     #ifdef _JACOBI4
-    printf("Jacobi executed\n");
+    //printf("Jacobi executed\n");
+    ts = omp_get_wtime();
     int tot_iteration = jacobi4(u,u_old,f,N,iter_max,&tolerance);
+    te = omp_get_wtime();
+    printf("%g",tot_iteration/(te-ts)*9*8);
     #endif
 
     #ifdef _JACOBI5
-    printf("Jacobi executed\n");
+    //printf("Jacobi executed\n");
+    ts = omp_get_wtime();
     int tot_iteration = jacobi5(u,u_old,f,N,iter_max,&tolerance);
+    te = omp_get_wtime();
+    printf("%g",tot_iteration/(te-ts)*9*8);
     #endif
     
-    printf("Total iteration: %d\nNorm: %g\n",tot_iteration,tolerance);
+    //printf("Total iteration: %d\nNorm: %g\n",tot_iteration,tolerance);
 
     /*for(int i=0; i<N; i++){
         for(int j=0; j<N; j++){
