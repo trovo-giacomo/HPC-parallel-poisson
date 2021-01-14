@@ -1,0 +1,105 @@
+Executable: ./poisson_gs
+Number of threads: 1
+27.7196	203.76
+Number of threads: 2
+34.6185	163.49
+Number of threads: 4
+81.8313	70.18
+Number of threads: 6
+123.918	46.93
+Number of threads: 8
+170.827	34.52
+Number of threads: 10
+224.24	26.71
+Number of threads: 12
+270.816	22.42
+Number of threads: 14
+322.86	19.09
+Number of threads: 16
+363.601	17.14
+Number of threads: 18
+402.619	15.64
+Number of threads: 20
+434.745	14.62
+Number of threads: 22
+457.604	13.97
+Number of threads: 24
+463.078	13.83
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@n-62-21-93>
+Subject: Job 9097965: <Gauss_Sidel_par> in cluster <dcc> Done
+
+Job <Gauss_Sidel_par> was submitted from host <n-62-27-19> by user <s202737> in cluster <dcc> at Thu Jan 14 17:12:23 2021
+Job was executed on host(s) <24*n-62-21-93>, in queue <hpcintro>, as user <s202737> in cluster <dcc> at Thu Jan 14 17:12:26 2021
+</zhome/1a/b/153979> was used as the home directory.
+</zhome/1a/b/153979/HPC-parallel-poisson> was used as the working directory.
+Started at Thu Jan 14 17:12:26 2021
+Terminated at Thu Jan 14 17:23:30 2021
+Results reported at Thu Jan 14 17:23:30 2021
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#BSUB -J Gauss_Sidel_par
+#BSUB -o GaussSidel_parallel%J.out
+#BSUB -q hpcintro
+#BSUB -n 24
+#BSUB -R "rusage[mem=2048]"
+#BSUB -W 45
+
+# module load studio
+
+# define the driver name to use
+# valid values: matmult_c.studio, matmult_f.studio, matmult_c.gcc or
+# matmult_f.gcc
+#
+
+N=700
+NUM_ITER=100
+TOLERANCE=0.0001
+START_T=0.0
+OUTPUT=0
+
+PLACE=sockets
+BIND=spread
+
+THREADS="1 2 4 6 8 10 12 14 16 18 20 22 24"
+#THREADS="6 8 10"
+EXE="./poisson_gs"
+for EX in $EXE 
+do
+echo "Executable: $EX"
+for THR in $THREADS
+do
+echo "Number of threads: $THR"
+    OMP_PLACES=$PLACE OMP_PROC_BIND=$BIND OMP_NUM_THREADS=$THR time --format=%e $EX $N $NUM_ITER $TOLERANCE $START_T $OUTPUT
+    #OMP_NUM_THREADS=$THR time --format=%e $EX $N $NUM_ITER $TOLERANCE $START_T $OUTPUT
+done
+done
+
+#for N in 100 200 300 400
+#do
+#    OMP_NUM_THREADS=1 time -p ./poisson_j1 $N $NUM_ITER $TOLERANCE $START_T $OUTPUT
+#done
+
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   3403.03 sec.
+    Max Memory :                                 5940 MB
+    Average Memory :                             5938.14 MB
+    Total Requested Memory :                     49152.00 MB
+    Delta Memory :                               43212.00 MB
+    Max Swap :                                   -
+    Max Processes :                              5
+    Max Threads :                                23
+    Run time :                                   664 sec.
+    Turnaround time :                            667 sec.
+
+The output (if any) is above this job summary.
+

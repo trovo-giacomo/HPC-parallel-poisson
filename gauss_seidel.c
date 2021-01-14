@@ -16,7 +16,7 @@ int gauss_seidel(double ***u, double ***f, int N, int max_iter, double *threshol
         //error = 0.0;
         // update
         int i,j,k;
-        #pragma omp parallel for ordered(2) schedule(static,1) default(none) shared(u,N,delta_2,h,f,i) private(j,k)//reduction(+: error)
+        #pragma omp parallel for ordered(2) schedule(static,1) default(none) shared(u,N,delta_2,h,f) private(j,k)//reduction(+: error)
         for(i=1; i<N-1; i++){
             for(j=1; j<N-1; j++){
                 #pragma omp ordered depend(sink:i-1, j) depend(sink:i, j-1)

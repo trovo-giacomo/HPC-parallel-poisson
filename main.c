@@ -3,6 +3,7 @@
  */
 #include <stdio.h>
 #include <stdlib.h>
+#include <omp.h>
 #include "alloc3d.h"
 #include "print.h"
 
@@ -67,11 +68,18 @@ main(int argc, char *argv[]) {
     #endif
 
     #ifdef _GAUSS_SEIDEL
-    printf("Gauss Seidel executed\n");
+    double ts, te, time, change_pr_sec;
+    ts = omp_get_wtime();
+    //printf("Gauss Seidel executed\n");
     int tot_iteration = gauss_seidel(u,f,N,iter_max,&tolerance);
+    te = omp_get_wtime();
+    time = te-ts;
+    change_pr_sec = (double)tot_iteration/time *7.0*8.0;
+
+    printf("%g\t", change_pr_sec);
     #endif
     
-    printf("Total iteration: %d\nNorm: %g\n",tot_iteration,tolerance);
+    //printf("Total iteration: %d\nNorm: %g\n",tot_iteration,tolerance);
 
     /*for(int i=0; i<N; i++){
         for(int j=0; j<N; j++){
