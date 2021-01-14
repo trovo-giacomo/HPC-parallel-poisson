@@ -59,19 +59,29 @@ main(int argc, char *argv[]) {
         exit(-1);
     }
 
-    init_matrix_u(N,u,start_T);
-
     if ( (u_old = d_malloc_3d(N, N, N)) == NULL ) {
         perror("array u: allocation failed");
         exit(-1);
     }
-    init_matrix_u(N,u_old,start_T);
 
     if ( (f = d_malloc_3d(N, N, N)) == NULL ) {
         perror("array f: allocation failed");
         exit(-1);
     }
+
+    #if defined(_JACOBI1) || defined(_JACOBI2) || defined(_JACOBI3) || defined(_JACOBI5)
+    init_matrix_u(N,u,start_T);
+    init_matrix_u(N,u_old,start_T);
     init_matrix_f(N,f);
+    #endif
+
+    #ifdef _JACOBI4
+    init_matrix_u_para(N,u,start_T);
+    init_matrix_u_para(N,u_old,start_T);
+    init_matrix_f_para(N,f);
+    #endif
+
+
 
     #ifdef _JACOBI1
     printf("Jacobi executed\n");
