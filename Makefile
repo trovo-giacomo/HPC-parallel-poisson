@@ -3,8 +3,8 @@
 TARGET_J1  = poisson_j1		# Jacobi1
 TARGET_J2  = poisson_j2		# Jacobi2
 
-SOURCES	= main.c print.c alloc3d.c init_matrix.c frobenius_norm.c
-OBJECTS	= print.o alloc3d.o init_matrix.o frobenius_norm.o
+SOURCES	= main.c print.c alloc3d.c init_matrix.c
+OBJECTS	= print.o alloc3d.o init_matrix.o 
 MAIN_J	= main_j.o
 MAIN_GS = main_gs.o
 OBJS_J	= $(MAIN_J1) jacobi1.o
@@ -48,6 +48,6 @@ clean_vtk:
 
 # DO NOT DELETE
 
-main_j.o: main.c print.h jacobi.h init_matrix.h
-main_gs.o: main.c print.h gauss_seidel.h init_matrix.h
+main_j1.o: main.c print.h jacobi.h init_matrix.h
+main_j2.o: main.c print.h gauss_seidel.h init_matrix.h
 print.o: print.h
