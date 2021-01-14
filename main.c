@@ -16,6 +16,18 @@
 #include "jacobi2.h"
 #endif
 
+#ifdef _JACOBI3
+#include "jacobi3.h"
+#endif
+
+#ifdef _JACOBI4
+#include "jacobi4.h"
+#endif
+
+#ifdef _JACOBI5
+#include "jacobi5.h"
+#endif
+
 #define N_DEFAULT 100
 
 int
@@ -69,6 +81,21 @@ main(int argc, char *argv[]) {
     #ifdef _JACOBI2
     printf("Jacobi executed\n");
     int tot_iteration = jacobi2(u,u_old,f,N,iter_max,&tolerance);
+    #endif
+
+    #ifdef _JACOBI3
+    printf("Jacobi executed\n");
+    int tot_iteration = jacobi3(u,u_old,f,N,iter_max,&tolerance);
+    #endif
+
+    #ifdef _JACOBI4
+    printf("Jacobi executed\n");
+    int tot_iteration = jacobi4(u,u_old,f,N,iter_max,&tolerance);
+    #endif
+
+    #ifdef _JACOBI5
+    printf("Jacobi executed\n");
+    int tot_iteration = jacobi5(u,u_old,f,N,iter_max,&tolerance);
     #endif
     
     printf("Total iteration: %d\nNorm: %g\n",tot_iteration,tolerance);
