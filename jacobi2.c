@@ -6,7 +6,7 @@
 #include <math.h>
 #include <omp.h>
 
-int jacobi(double ***u, double ***u_old, double ***f, int N, int max_iter, double *threshold){
+int jacobi2(double ***u, double ***u_old, double ***f, int N, int max_iter, double *threshold){
     int it = 0;
     double norm = 100000.0;
     double h = 1.0/6.0;

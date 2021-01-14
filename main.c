@@ -8,12 +8,12 @@
 
 #include "init_matrix.h"
 
-#ifdef _JACOBI
-#include "jacobi.h"
+#ifdef _JACOBI1
+#include "jacobi1.h"
 #endif
 
-#ifdef _GAUSS_SEIDEL
-#include "gauss_seidel.h"
+#ifdef _JACOBI2
+#include "jacobi1.h"
 #endif
 
 #define N_DEFAULT 100
@@ -61,14 +61,14 @@ main(int argc, char *argv[]) {
     }
     init_matrix_f(N,f);
 
-    #ifdef _JACOBI
+    #ifdef _JACOBI1
     printf("Jacobi executed\n");
-    int tot_iteration = jacobi(u,u_old,f,N,iter_max,&tolerance);
+    int tot_iteration = jacobi1(u,u_old,f,N,iter_max,&tolerance);
     #endif
 
-    #ifdef _GAUSS_SEIDEL
-    printf("Gauss Seidel executed\n");
-    int tot_iteration = gauss_seidel(u,f,N,iter_max,&tolerance);
+    #ifdef _JACOBI2
+    printf("Jacobi executed\n");
+    int tot_iteration = jacobi1(u,u_old,f,N,iter_max,&tolerance);
     #endif
     
     printf("Total iteration: %d\nNorm: %g\n",tot_iteration,tolerance);

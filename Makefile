@@ -1,14 +1,14 @@
 # Makefile
 #
-TARGET_J  = poisson_j		# Jacobi
-TARGET_GS = poisson_gs		# Gauss-Seidel
+TARGET_J1  = poisson_j1		# Jacobi1
+TARGET_J2  = poisson_j2		# Jacobi2
 
 SOURCES	= main.c print.c alloc3d.c init_matrix.c frobenius_norm.c
 OBJECTS	= print.o alloc3d.o init_matrix.o frobenius_norm.o
 MAIN_J	= main_j.o
 MAIN_GS = main_gs.o
-OBJS_J	= $(MAIN_J) jacobi.o
-OBJS_GS	= $(MAIN_GS) gauss_seidel.o
+OBJS_J	= $(MAIN_J1) jacobi1.o
+OBJS_J	= $(MAIN_J2) Jacobi2.o
 
 # options and settings for the GCC compilers
 #
@@ -23,25 +23,25 @@ PARA	= -fopenmp
 CFLAGS	= $(DEFS) $(ARCH) $(OPT) $(ISA) $(CHIP) $(IPO) $(PARA) $(XOPTS)
 LDFLAGS = -lm 
 
-all: $(TARGET_J) $(TARGET_GS) 
+all: $(TARGET_J2) $(TARGET_J2) 
 
-$(TARGET_J): $(OBJECTS) $(OBJS_J)
+$(TARGET_J2): $(OBJECTS) $(OBJS_J)
 	$(CC) -o $@ $(CFLAGS) $(OBJS_J) $(OBJECTS) $(LDFLAGS)
 
-$(TARGET_GS): $(OBJECTS) $(OBJS_GS)
+$(TARGET_J2): $(OBJECTS) $(OBJS_GS)
 	$(CC) -o $@ $(CFLAGS) $(OBJS_GS) $(OBJECTS) $(LDFLAGS)
 
-$(MAIN_J):
-	$(CC) -o $@ -D_JACOBI $(CFLAGS) -c main.c 
+$(MAIN_J1):
+	$(CC) -o $@ -D_JACOBI1 $(CFLAGS) -c main.c 
 
-$(MAIN_GS):
-	$(CC) -o $@ -D_GAUSS_SEIDEL $(CFLAGS) -c main.c 
+$(MAIN_J2):
+	$(CC) -o $@ -D_JACOBI2 $(CFLAGS) -c main.c 
 
 clean:
 	@/bin/rm -f core *.o *~
 
 realclean: clean
-	@/bin/rm -f $(TARGET_J)  $(TARGET_GS)
+	@/bin/rm -f $(TARGET_J2)  $(TARGET_J2)
 
 clean_vtk:
 	@/bin/rm -f *.vtk
