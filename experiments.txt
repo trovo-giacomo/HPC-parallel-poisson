@@ -11,9 +11,9 @@ number of iteration per second for both methods -> varing N
 
 3. implementations:
  - simple parallelization -> baseline
- - different types of schelduling
- - try collapse loops
- - parallelize data initialiazation
+ - different types of schelduling -> no needed analyzing th time line all the thread get the same amount of work
+ - try collapse loops (2 and 3) -> no improvement
+ - parallelize data initialiazation -> no improvement
  - placements of threads
  All with a fix number of N
 
