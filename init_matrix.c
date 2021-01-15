@@ -8,27 +8,27 @@ int discr(double x, int N){
 void init_matrix_u_para(int N, double ***A, double start_T){
     #pragma omp parallel default(none) shared(N, A, start_T)
     {
-    #pragma omp for
+    #pragma omp for schedule(static)
     for(int i=0; i<N; i++)
         for(int j=0; j<N; j++)
             for(int k=0; k<N; k++)
                 A[i][j][k] = start_T;
 
-    #pragma omp for nowait
+    #pragma omp for nowait schedule(static)
     for(int i=0; i<N; i++)
         for(int k=0; k<N; k++){
             A[i][0][k] = 20.0;
             A[i][N-1][k] = 20.0;
         }
 
-    #pragma omp for nowait
+    #pragma omp for nowait schedule(static)
     for(int i=0; i<N; i++)
         for(int j=0; j<N; j++){
             A[i][j][0] = 20.0;
             A[i][j][N-1] = 20.0;
         }
 
-    #pragma omp for nowait
+    #pragma omp for nowait schedule(static)
     for(int j=0; j<N; j++)
         for(int k=0; k<N; k++){
             A[0][j][k] = 0.0;
@@ -42,7 +42,7 @@ void init_matrix_f_para(int N, double ***A){
     int y_start = discr(-1,N), y_end = discr(-1.0/2.0,N);
     int x_start = discr(-1,N), x_end = discr(-3.0/8.0,N);
 
-    #pragma omp parallel for default(none) shared(N,A, z_start,z_end, y_start, y_end, x_start, x_end)
+    #pragma omp parallel for default(none) schedule(static) shared(N,A, z_start,z_end, y_start, y_end, x_start, x_end)
     for(int i=z_start; i<=z_end; i++) //iterate over the z dimension
         for(int j=y_start; j<=y_end; j++) // iterate over y
             for(int k=x_start; k<=x_end; k++) // iterate over x
