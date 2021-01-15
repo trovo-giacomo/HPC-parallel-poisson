@@ -1,0 +1,44 @@
+Executable: ./poisson_gs N=700 - max_iter=100
+[b/s time]
+Number of threads: 1
+27.7196	203.76
+Number of threads: 2
+34.6185	163.49
+Number of threads: 4
+81.8313	70.18
+Number of threads: 6
+123.918	46.93
+Number of threads: 8
+170.827	34.52
+Number of threads: 10
+224.24	26.71
+Number of threads: 12
+270.816	22.42
+Number of threads: 14
+322.86	19.09
+Number of threads: 16
+363.601	17.14
+Number of threads: 18
+402.619	15.64
+Number of threads: 20
+434.745	14.62
+Number of threads: 22
+457.604	13.97
+Number of threads: 24
+463.078	13.83
+
+Executable: ./poisson_gs N=120 - max_iter=8000
+5459.32	82.07
+5718.4	78.35
+10751.4	41.68
+15230.4	29.43
+20264.1	22.12
+25905.4	17.31
+30527.3	14.69
+35619.5	12.59
+39170.1	11.45
+43039.7	10.42
+53562	8.37
+51874.6	8.65
+65105.3	6.89
+

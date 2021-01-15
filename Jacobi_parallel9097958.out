@@ -1,0 +1,93 @@
+Executable: ./poisson_j4 sockets spread
+55.2549	132.02
+109.644	66.55
+202.651	35.99
+291.482	25.02
+379.646	19.21
+441.149	16.53
+490.012	14.87
+523.269	13.92
+541.101	13.46
+550.386	13.22
+564.029	12.90
+565.657	12.85
+569.856	12.76
+
+------------------------------------------------------------
+Sender: LSF System <lsfadmin@n-62-21-78>
+Subject: Job 9097958: <Jacobi_par> in cluster <dcc> Done
+
+Job <Jacobi_par> was submitted from host <n-62-30-7> by user <s202447> in cluster <dcc> at Thu Jan 14 17:11:05 2021
+Job was executed on host(s) <24*n-62-21-78>, in queue <hpcintro>, as user <s202447> in cluster <dcc> at Thu Jan 14 17:44:39 2021
+</zhome/49/5/153826> was used as the home directory.
+</zhome/49/5/153826/HPC/HPC-parallel-poisson> was used as the working directory.
+Started at Thu Jan 14 17:44:39 2021
+Terminated at Thu Jan 14 17:51:09 2021
+Results reported at Thu Jan 14 17:51:09 2021
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#BSUB -J Jacobi_par
+#BSUB -o Jacobi_parallel%J.out
+#BSUB -q hpcintro
+#BSUB -n 24
+#BSUB -R "rusage[mem=2048]"
+#BSUB -W 45
+
+# module load studio
+
+# define the driver name to use
+# valid values: matmult_c.studio, matmult_f.studio, matmult_c.gcc or
+# matmult_f.gcc
+#
+
+N=700
+NUM_ITER=100
+TOLERANCE=0.0001
+START_T=0.0
+OUTPUT=0
+
+PLACE=sockets
+BIND=spread
+
+THREADS="1 2 4 6 8 10 12 14 16 18 20 22 24"
+#THREADS="6 8 10"
+#EXE="./poisson_j1 ./poisson_j2 ./poisson_j3 ./poisson_j4" # ./poisson_j5"
+EXE="./poisson_j4"
+for EX in $EXE 
+do
+echo "Executable: $EX sockets spread"
+for THR in $THREADS
+do
+# echo "Number of threads: $THR"
+    OMP_PLACES=$PLACE OMP_PROC_BIND=$BIND OMP_NUM_THREADS=$THR time --format=%e $EX $N $NUM_ITER $TOLERANCE $START_T $OUTPUT
+    #OMP_NUM_THREADS=$THR $EX $N $NUM_ITER $TOLERANCE $START_T $OUTPUT
+done
+done
+
+#for N in 100 200 300 400
+#do
+#    OMP_NUM_THREADS=1 time -p ./poisson_j1 $N $NUM_ITER $TOLERANCE $START_T $OUTPUT
+#done
+
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   2427.88 sec.
+    Max Memory :                                 5939 MB
+    Average Memory :                             4896.00 MB
+    Total Requested Memory :                     49152.00 MB
+    Delta Memory :                               43213.00 MB
+    Max Swap :                                   -
+    Max Processes :                              5
+    Max Threads :                                17
+    Run time :                                   390 sec.
+    Turnaround time :                            2404 sec.
+
+The output (if any) is above this job summary.
+
