@@ -19,7 +19,7 @@ int jacobi3(double ***u, double ***u_old, double ***f, int N, int max_iter, doub
         u = temp;
         // update
         error = 0.0;
-        #pragma omp parallel for default(none) shared(u,u_old,N,delta_2,f,h) reduction(+: error)
+        #pragma omp parallel for collapse(3) default(none) shared(u,u_old,N,delta_2,f,h) reduction(+: error)
         for(int i=1; i<N-1; i++){
             for(int j=1; j<N-1; j++){
                 for(int k=1; k<N-1; k++){

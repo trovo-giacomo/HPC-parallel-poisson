@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include "alloc3d.h"
 #include "print.h"
+#include <omp.h>
 
 #include "init_matrix.h"
 
@@ -42,7 +43,7 @@ main(int argc, char *argv[]) {
     char        *output_ext    = "";
     char	output_filename[FILENAME_MAX];
     double 	***u = NULL, ***u_old=NULL, ***f=NULL;
-
+    double ts, te;
 
     /* get the paramters from the command line */
     N         = atoi(argv[1]);	// grid size
@@ -84,23 +85,43 @@ main(int argc, char *argv[]) {
 
 
     #ifdef _JACOBI1
+    //printf("Jacobi executed\n");
+    ts = omp_get_wtime();
     int tot_iteration = jacobi1(u,u_old,f,N,iter_max,&tolerance);
+    te = omp_get_wtime();
+    printf("%g\t",(double)tot_iteration/(te-ts)*9.0*8.0);
     #endif
 
     #ifdef _JACOBI2
+    //printf("Jacobi executed\n");
+    ts = omp_get_wtime();
     int tot_iteration = jacobi2(u,u_old,f,N,iter_max,&tolerance);
+    te = omp_get_wtime();
+    printf("%g\t",(double)tot_iteration/(te-ts)*9.0*8.0);
     #endif
 
     #ifdef _JACOBI3
+    //("Jacobi executed\n");
+    ts = omp_get_wtime();
     int tot_iteration = jacobi3(u,u_old,f,N,iter_max,&tolerance);
+    te = omp_get_wtime();
+    printf("%g\t",(double)tot_iteration/(te-ts)*9.0*8.0);
     #endif
 
     #ifdef _JACOBI4
+    //printf("Jacobi executed\n");
+    ts = omp_get_wtime();
     int tot_iteration = jacobi4(u,u_old,f,N,iter_max,&tolerance);
+    te = omp_get_wtime();
+    printf("%g\t",(double)tot_iteration/(te-ts)*9.0*8.0);
     #endif
 
     #ifdef _JACOBI5
+    //printf("Jacobi executed\n");
+    ts = omp_get_wtime();
     int tot_iteration = jacobi5(u,u_old,f,N,iter_max,&tolerance);
+    te = omp_get_wtime();
+    printf("%g\t",tot_iteration/(te-ts)*9*8);
     #endif
     
     //printf("Total iteration: %d\nNorm: %g\n",tot_iteration,tolerance);
