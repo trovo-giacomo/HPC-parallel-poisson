@@ -23,7 +23,7 @@ OBJS_J5	= $(MAIN_J5) jacobi5.o
 #
 CC	= gcc
 DEFS	= 
-OPT	= -g -O3
+OPT	= -g  -O3
 IPO	= 
 ISA	= 
 CHIP	= 
