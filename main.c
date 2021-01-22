@@ -113,7 +113,7 @@ main(int argc, char *argv[]) {
     ts = omp_get_wtime();
     int tot_iteration = jacobi4(u,u_old,f,N,iter_max,&tolerance);
     te = omp_get_wtime();
-    printf("%g\t",(double)tot_iteration/(te-ts)*9.0*8.0);
+    printf("Time: %g\t",(te-ts));
     #endif
 
     #ifdef _JACOBI5
@@ -121,7 +121,7 @@ main(int argc, char *argv[]) {
     ts = omp_get_wtime();
     int tot_iteration = jacobi5(u,u_old,f,N,iter_max,&tolerance);
     te = omp_get_wtime();
-    printf("%g\t",tot_iteration/(te-ts)*9*8);
+    printf("Time: %g\t",tot_iteration/(te-ts)*9*8);
     #endif
     
     //printf("Total iteration: %d\nNorm: %g\n",tot_iteration,tolerance);
